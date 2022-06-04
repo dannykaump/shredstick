@@ -26,12 +26,12 @@ const dreamcatcher = new Surfboard('Dreamcatcher', 'Robert\'s', 'hybrid', {
     }
 })
 
-const dumpsterdiver = new Surfboard()
+const unknown = new Surfboard()
 
 const surfboards = {
     whitenoiz,
     dreamcatcher,
-    dumpsterdiver
+    unknown
 }
 
 app.get('/', (request, response) => {
@@ -48,7 +48,7 @@ app.get('/api/:name', (request, response) => {
     if (surfboards[boardName]) {
         response.json(surfboards[boardName])
     } else {
-        response.json(surfboards)
+        response.json(surfboards[unknown])
     }
 
 })
