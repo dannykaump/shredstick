@@ -5,38 +5,53 @@ const PORT = 8000
 
 app.use(cors())
 
-const rappers = {
-    '21 savage': {
-        'age': 29,
-        'birthName': 'Shéyaa Bin Abraham-Joseph',
-        'birthLocation': 'London, England'
-    },
-    'chance the rapper':{
-        'age': 29,
-        'birthName': 'Chancelor Bennett',
-        'birthLocation': 'Chicago, Illinois' 
-    },
-    'unknown':{
-        'age': 0,
-        'birthName': 'unknown',
-        'birthLocation': 'unknown'
+class Surfboard {
+    constructor(model, brand, length) {
+        this.model = model || 'unknown'
+        this.brand = brand || 'unknown'
+        this.length = length || 'unknown'
     }
 }
-app.get('/', (request, response)=>{
+
+const whitenoiz = new Surfboard('White Noiz', 'HS', {
+    '5\'10' : {
+        'volume' : 28.5
+    }
+})
+
+const dreamcatcher = new Surfboard('Dreamcatcher', 'Robert\'s', {
+    '6\'3': {
+        'volume' : 38
+    }
+})
+
+const dumpsterdiver = new Surfboard()
+
+const surfboards = {
+    whitenoiz,
+    dreamcatcher,
+    dumpsterdiver
+}
+
+app.get('/', (request, response) => {
     response.sendFile(__dirname + '/index.html')
 })
 
-app.get('/api/:name',(request,response)=>{
-    const rapperName = request.params.name.toLowerCase()
-
-    if( rappers[rapperName] ){
-        response.json(rappers[rapperName])
-    }else{
-        response.json(rappers['unknown'])
-    }
-    
+app.get('/api', (request, response) => {
+    response.json(surfboards)
 })
 
-app.listen(process.env.PORT || PORT, ()=>{
+app.get('/api/:name', (request, response) => {
+    const boardName = request.params.name.split(' ').join('').toLowerCase()
+
+    if (surfboards[boardName]) {
+        response.json(surfboards[boardName])
+    } else {
+        response.json(surfboards)
+    }
+
+})
+
+app.listen(process.env.PORT || PORT, () => {
     console.log(`The server is now running on port ${PORT}! Betta Go Catch It!`)
 })
