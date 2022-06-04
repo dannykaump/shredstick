@@ -14,13 +14,20 @@ class Surfboard {
     }
 }
 
+class Hybrid extends Surfboard {
+    constructor(model, brand, length) {
+        super(model, brand, length)
+        this.type = 'hybrid'
+    }
+}
+
 const whitenoiz = new Surfboard('White Noiz', 'HS', 'hpsb', {
     '5\'10' : {
         'volume' : 28.5
     }
 })
 
-const dreamcatcher = new Surfboard('Dreamcatcher', 'Robert\'s', 'hybrid', {
+const dreamcatcher = new Hybrid('Dreamcatcher', 'Robert\'s', {
     '6\'3': {
         'volume' : 38
     }
