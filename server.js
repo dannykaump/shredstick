@@ -12,7 +12,6 @@ class Surfboard {
         this.type = type || 'n/a'
         this.condition = condition || 'n/a'
         this.price = price || 0
-       
         this.length = length || 'n/a'
     }
     getPrice = _ => `$${this.price}`
@@ -45,11 +44,7 @@ const whitenoiz = new Shortboard('White Noiz', 'HS', 'used', 200, {
     }
 })
 
-const dreamcatcher = new Hybrid('Dreamcatcher', 'Robert\'s', 'good', 1000, {
-    '6\'3': {
-        'volume': 38
-    }
-})
+const dreamcatcher = new Hybrid('Dreamcatcher', 'Robert\'s', 'good', 1000, new Dims('6\'3', [38]))
 
 const unknown = new Surfboard()
 
@@ -58,6 +53,16 @@ const surfboards = [
     dreamcatcher,
     unknown
 ]
+
+class Dims {
+    constructor(length, dims) {
+        this.length = length
+        this.length.dims = {
+            'volume': dims[0] || 'na'
+        }
+    }
+}
+
 
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/index.html')
@@ -79,7 +84,7 @@ app.get('/api/:name', (req, res) => {
 })
 
 app.listen(process.env.PORT || PORT, () => {
-    console.log(`The server is now firing on port ${PORT}!`)
+    console.log(`The server is now FIRING on port ${PORT}!`)
 })
 
 setTimeout(() => {
