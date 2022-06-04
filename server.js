@@ -6,20 +6,21 @@ const PORT = 8000
 app.use(cors())
 
 class Surfboard {
-    constructor(model, brand, length) {
+    constructor(model, brand, type, length) {
         this.model = model || 'unknown'
         this.brand = brand || 'unknown'
+        this.type = type || 'unknown'
         this.length = length || 'unknown'
     }
 }
 
-const whitenoiz = new Surfboard('White Noiz', 'HS', {
+const whitenoiz = new Surfboard('White Noiz', 'HS', 'hpsb', {
     '5\'10' : {
         'volume' : 28.5
     }
 })
 
-const dreamcatcher = new Surfboard('Dreamcatcher', 'Robert\'s', {
+const dreamcatcher = new Surfboard('Dreamcatcher', 'Robert\'s', 'hybrid', {
     '6\'3': {
         'volume' : 38
     }
