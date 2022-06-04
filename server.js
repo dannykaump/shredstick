@@ -11,8 +11,8 @@ class Surfboard {
         this.brand = brand || 'n/a'
         this.type = type || 'n/a'
         this.condition = condition || 'n/a'
-        this._price = price || 0
-        this.price = this._price
+        this.price = price || 0
+       
         this.length = length || 'n/a'
     }
     getPrice = _ => `$${this.price}`
