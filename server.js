@@ -48,7 +48,7 @@ app.get('/api/:name', (request, response) => {
     if (surfboards[boardName]) {
         response.json(surfboards[boardName])
     } else {
-        response.json(surfboards[unknown])
+        response.json(unknown)
     }
 
 })
