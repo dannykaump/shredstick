@@ -6,45 +6,37 @@ const PORT = 8000
 app.use(cors())
 
 class Surfboard {
-    constructor(model, brand, condition, price, length, dims, type) {
-        this.model = model || 'n/a'
-        this.brand = brand || 'n/a'
-        this.type = type || 'n/a'
-        this.condition = condition || 'n/a'
-        this.price = price || 0
-        this.length = length || 'n/a'
+    constructor(info, dims, fins) {
+        if (info) {
+            this.model = info[0] 
+            this.brand = info[1] 
+            this.type = info[2] 
+            this.condition = info[3] 
+            this.price = info[4] 
+        }
         if (dims) {
-            this.volume = dims[0]
+            this.length = dims[0]
+            this.volume = dims[1]
+        }
+        if (fins) {
+            this.finType = fins[0]
+            this.finBox = fins[1]
         }
     }
     getPrice = _ => `$${this.price}`
     getVolume = _ => `${this.volume}L`
 }
 
-class Hybrid extends Surfboard {
-    constructor(model, brand, condition, price, length, dims) {
-        super(model, brand, condition, price, length, dims)
-        this.type = 'hybrid'
-    }
-}
-
-class Shortboard extends Surfboard {
-    constructor(model, brand, condition, price, length, dims) {
-        super(model, brand, condition, price, length, dims)
-        this.type = 'shortboard'
-    }
-}
-
 class Longboard extends Surfboard {
-    constructor(model, brand, condition, price, length, dims) {
-        super(model, brand, condition, price, length, dims)
+    constructor(info, dims) {
+        super(info, dims)
         this.type = 'longboard'
     }
 }
 
-const whitenoiz = new Shortboard('White Noiz', 'HS', 'used', 200, '5\'10', [28.5])
+const whitenoiz = new Surfboard(['White Noiz', 'HS', 'shortboard', 'used', 200], ['5\'10', 28.5], ['futures', 'thruster'])
 
-const dreamcatcher = new Hybrid('Dreamcatcher', 'Robert\'s', 'good', 1000, '6\'3', [38])
+const dreamcatcher = new Surfboard(['Dreamcatcher', 'Robert\'s', 'hybrid', 'good', 1000], ['6\'3', 38], ['futures', '5-fin'])
 
 const unknown = new Surfboard()
 
@@ -57,11 +49,11 @@ const surfboards = [
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/index.html')
 })
-
+//all surfboards
 app.get('/api', (req, res) => {
     res.json(surfboards)
 })
-
+//search board by name 
 app.get('/api/:name', (req, res) => {
     const boardName = req.params.name.split(' ').join('').toLowerCase()
 
