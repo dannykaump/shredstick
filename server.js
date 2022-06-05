@@ -25,7 +25,7 @@ MongoClient.connect('mongodb+srv://danielrkaump:hamden1216@cluster0.ejksv.mongod
     
     app.use(bodyParser.json())
     
-    app.use(express.static('public'))
+    app.use(express.static(__dirname + '/dist/'))
     
         app.get('/', (req, res) => {
             db.collection('surfboards').find().toArray()
