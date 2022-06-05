@@ -9,6 +9,9 @@ app.set('view engine', 'ejs')
 
 app.use(cors())
 
+app.listen(process.env.PORT || PORT, () => {
+    console.log(`The server is now FIRING on port ${PORT}!`)
+})
 
 
 MongoClient.connect('mongodb+srv://danielrkaump:hamden1216@cluster0.ejksv.mongodb.net/?retryWrites=true&w=majority', {
@@ -27,9 +30,6 @@ MongoClient.connect('mongodb+srv://danielrkaump:hamden1216@cluster0.ejksv.mongod
     
     app.use(express.static('public'))
     
-    app.listen(process.env.PORT || PORT, () => {
-        console.log(`The server is now FIRING on port ${PORT}!`)
-    })
     
         app.get('/', (req, res) => {
             db.collection('surfboards').find().toArray()
