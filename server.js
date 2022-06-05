@@ -56,12 +56,12 @@ MongoClient.connect('mongodb+srv://danielrkaump:hamden1216@cluster0.ejksv.mongod
                 })
                 .catch(error => console.error(error))
         })
-        //search board by name 
+        //search board by name || brand
         app.get('/api/:name', (req, res) => {
             const boardName = req.params.name.split(' ').join('').toLowerCase()
-            surfCollection.find({ model: boardName }).toArray()
+            surfCollection.find().toArray()
                 .then(results => {
-                    res.json(results)
+                    res.json(results.filter(obj => obj.model.toLowerCase().includes(boardName) || obj.brand.toLowerCase().includes(boardName)))
                 })
                 .catch(error => console.error(error))
         })
