@@ -3,23 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="wnameth=device-wnameth, initial-scale=1.0">
     <title>shredstick</title>
 </head>
 <body>
     <h1>shredstick</h1>
-    <form>
-        <input type="text" placeholder="model" id="model">
-        <input type="text" placeholder="brand" id="brand">
-        <input type="text" placeholder="type" id="type">
-        <input type="text" placeholder="condition" id="condition">
-        <input type="number" placeholder="price" id="price">
-        <input type="text" placeholder="length" id="length">
-        <input type="number" placeholder="volume" id="volume">
-        <input type="text" placeholder="finType" id="finType">
-        <input type="text" placeholder="finBox" id="finBox">
+    <form action="/surfboards" method="POST">
+        <input type="text" placeholder="model" name="model">
+        <input type="text" placeholder="brand" name="brand">
+        <input type="text" placeholder="type" name="type">
+        <input type="text" placeholder="condition" name="condition">
+        <input type="number" placeholder="price" name="price">
+        <input type="text" placeholder="size" name="size">
+        <input type="number" placeholder="volume" name="volume">
+        <input type="text" placeholder="finType" name="finType">
+        <input type="text" placeholder="finBox" name="finBox">
+        <button type="submit">submit</button>
     </form>
-    <button id="submit">enter</button>
+    <script src="/main.js"></script>
     <script src="main.js"></script>
 </body>
 </html>

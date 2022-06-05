@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="wnameth=device-wnameth, initial-scale=1.0">
+    <title>shredstick</title>
+</head>
+
+<body>
+    <h1>shredstick</h1>
+    <form action="/surfboards" method="POST">
+        <input type="text" placeholder="model/name" name="model">
+        <input type="text" placeholder="brand" name="brand">
+        <input type="text" placeholder="type" name="type">
+        <input type="text" placeholder="condition" name="condition">
+        <input type="number" placeholder="price" name="price">
+        <input type="text" placeholder="size" name="size">
+        <input type="number" placeholder="volume" name="volume">
+        <input type="text" placeholder="finType" name="finType">
+        <input type="text" placeholder="finBox" name="finBox">
+        <button type="submit">submit</button>
+    </form>
+    <ul class="surfboards">
+        <!-- Loop through surfboards -->
+        <% for(var i=0; i < surfboards.length; i++) {%>
+            <li class="surfboard">
+                <!-- Output model from the iterated surfboard object -->
+                <span>
+                    <%= surfboards[i].brand %>
+                </span>
+                <!-- Output size from the iterated surfboard object -->
+                <span>
+                    <%= surfboards[i].model %>
+                </span>
+                <ul>
+                    <li>
+                        size : <%= surfboards[i].size %>
+                    </li>
+                    <li>
+                        volume : <%= surfboards[i].volume %>
+                    </li>
+                    <li>
+                        type : <%= surfboards[i].type %>
+                    </li>
+                    <li>
+                        condition : <%= surfboards[i].condition %>
+                    </li>
+                    <li>
+                        price : <%= surfboards[i].price %>
+                    </li>
+                    <li>
+                        fins : <%= surfboards[i].finBox %> <%= surfboards[i].finType %>
+                    </li>
+                </ul>
+            </li>
+            <% } %>
+    </ul>
+
+    <script src="/main.js"></script>
+    <script src="main.js"></script>
+</body>
+
+</html>

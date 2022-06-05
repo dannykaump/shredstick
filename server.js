@@ -2,11 +2,13 @@ const express = require('express')
 const app = express()
 const cors = require('cors')
 const PORT = 8000
+const bodyParser = require('body-parser');
+const MongoClient = require('mongodb').MongoClient
+
+app.set('view engine', 'ejs')
 
 app.use(cors())
 
-const bodyParser = require('body-parser');
-const MongoClient = require('mongodb').MongoClient
 
 
 MongoClient.connect('mongodb+srv://danielrkaump:hamden1216@cluster0.ejksv.mongodb.net/?retryWrites=true&w=majority', {
@@ -14,8 +16,8 @@ MongoClient.connect('mongodb+srv://danielrkaump:hamden1216@cluster0.ejksv.mongod
 })
     .then(client => {
         console.log('Connected to Database')
-        const db = client.db('twain-quotes')
-        const quotesCollection = db.collection('quotes')
+        const db = client.db('shredstick')
+        const surfCollection = db.collection('surfboards')
 
         app.set('view engine', 'ejs')
 
@@ -30,93 +32,85 @@ MongoClient.connect('mongodb+srv://danielrkaump:hamden1216@cluster0.ejksv.mongod
         })
 
         app.get('/', (req, res) => {
-            db.collection('quotes').find().toArray()
+            db.collection('surfboards').find().toArray()
                 .then(results => {
                     console.log(results)
-                    res.render('index.ejs', { quotes: results })
+                    res.render('index.ejs', { surfboards: results })
                 })
                 .catch(error => console.error(error))
         })
 
-        app.post('/quotes', (req, res) => {
-            quotesCollection.insertOne(req.body)
+        // create surfboard obj in database
+        app.post('/surfboards', (req, res) => {
+            surfCollection.insertOne(req.body)
                 .then(result => {
                     console.log(result)
                     res.redirect('/')
                 })
                 .catch(error => console.error(error))
         })
+        app.get('/', (req, res) => {
+            res.sendFile(__dirname + '/index.html')
+        })
+        //all surfboards JSON
+        app.get('/api', (req, res) => {
+            surfCollection.find().toArray()
+                .then(results => {
+                    res.json(results)
+                })
+                .catch(error => console.error(error))
+        })
+        //search board by name 
+        app.get('/api/:name', (req, res) => {
+            const boardName = req.params.name.split(' ').join('').toLowerCase()
+            surfCollection.find({ model: boardName }).toArray()
+                .then(results => {
+                    res.json(results)
+                })
+                .catch(error => console.error(error))
+        })
+
+        app.listen(process.env.PORT || PORT, () => {
+            console.log(`The server is now FIRING on port ${PORT}!`)
+        })
     })
+
+
     .catch(error => console.error(error))
 
-console.log('May Node be with you')
 
-class Surfboard {
-    constructor(info, dims, fins) {
-        if (info) {
-            this.model = info[0]
-            this.brand = info[1]
-            this.type = info[2]
-            this.condition = info[3]
-            this.price = info[4]
-        }
-        if (dims) {
-            this.length = dims[0]
-            this.volume = dims[1]
-        }
-        if (fins) {
-            this.finType = fins[0]
-            this.finBox = fins[1]
-        }
-    }
-    getPrice = _ => `$${this.price}`
-    getVolume = _ => `${this.volume}L`
-}
+// class Surfboard {
+//     constructor(info, dims, fins) {
+//         if (info) {
+//             this.model = info[0]
+//             this.brand = info[1]
+//             this.type = info[2]
+//             this.condition = info[3]
+//             this.price = info[4]
+//         }
+//         if (dims) {
+//             this.length = dims[0]
+//             this.volume = dims[1]
+//         }
+//         if (fins) {
+//             this.finType = fins[0]
+//             this.finBox = fins[1]
+//         }
+//     }
+//     getPrice = _ => `$${this.price}`
+//     getVolume = _ => `${this.volume}L`
+// }
 
 //placeholder literal notaysh
-const whitenoiz = new Surfboard(['White Noiz', 'HS', 'shortboard', 'used', 200], ['5\'10', 28.5], ['futures', 'thruster'])
+// const whitenoiz = new Surfboard(['White Noiz', 'HS', 'shortboard', 'used', 200], ['5\'10', 28.5], ['futures', 'thruster'])
 
-const dreamcatcher = new Surfboard(['Dreamcatcher', 'Robert\'s', 'hybrid', 'good', 1000], ['6\'3', 38], ['futures', '5-fin'])
+// const dreamcatcher = new Surfboard(['Dreamcatcher', 'Robert\'s', 'hybrid', 'good', 1000], ['6\'3', 38], ['futures', '5-fin'])
 
-const unknown = new Surfboard()
+// const unknown = new Surfboard()
 
-const surfboards = [
-    whitenoiz,
-    dreamcatcher,
-    unknown
-]
+// const surfboards = [
+//     whitenoiz,
+//     dreamcatcher,
+//     unknown
+// ]
 
-app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/index.html')
-})
-//all surfboards JSON
-app.get('/api', (req, res) => {
-    res.json(surfboards)
-})
-//search board by name 
-app.get('/api/:name', (req, res) => {
-    const boardName = req.params.name.split(' ').join('').toLowerCase()
-
-    if (surfboards[boardName]) {
-        res.json(surfboards[boardName])
-    } else {
-        res.json(unknown)
-    }
-
-})
-
-app.listen(process.env.PORT || PORT, () => {
-    console.log(`The server is now FIRING on port ${PORT}!`)
-})
-
-setTimeout(() => {
-    console.log(dreamcatcher.getPrice())
-    console.log(dreamcatcher.getVolume())
-}, 1000)
-
-
-const submit = document.getElementById('submit')
-
-submit.addEventListener('click', {
-
-})
