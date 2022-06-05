@@ -5,31 +5,27 @@ const PORT = 8000
 const bodyParser = require('body-parser');
 const MongoClient = require('mongodb').MongoClient
 
+app.set('view engine', 'ejs')
 
+app.use(cors())
 
+app.listen(process.env.PORT || PORT, () => {
+    console.log(`The server is now FIRING on port ${PORT}!`)
+})
 
 MongoClient.connect('mongodb+srv://danielrkaump:hamden1216@cluster0.ejksv.mongodb.net/?retryWrites=true&w=majority', {
     useUnifiedTopology: true
 })
+
 .then(client => {
     console.log('Connected to Database')
     const db = client.db('shredstick')
     const surfCollection = db.collection('surfboards')
-    
-    app.use(cors())
-    
-    app.listen(process.env.PORT || PORT, () => {
-        console.log(`The server is now FIRING on port ${PORT}!`)
-    })
-    
-    app.set('view engine', 'ejs')
-    
     app.use(bodyParser.urlencoded({ extended: true }))
     
     app.use(bodyParser.json())
     
     app.use(express.static('public'))
-    
     
         app.get('/', (req, res) => {
             db.collection('surfboards').find().toArray()
@@ -71,7 +67,6 @@ MongoClient.connect('mongodb+srv://danielrkaump:hamden1216@cluster0.ejksv.mongod
         })
 
     })
-
 
     .catch(error => console.error(error))
 
