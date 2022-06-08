@@ -5,30 +5,33 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="wnameth=device-wnameth, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css" />
     <title>shredstick</title>
 </head>
 
 <body>
     <h1>shredstick</h1>
-    <form action="/users" method="POST">
-        <input type="text" placeholder="username" name="username">
-        <input type="text" placeholder="password" name="password">
-        <input type="email" placeholder="email" name="email">
-        <button type="submit">sign in</button>
-    </form>
-    <form action="/surfboards" method="POST">
-        <input type="text" placeholder="model/name" name="model">
-        <input type="text" placeholder="brand" name="brand">
-        <input type="text" placeholder="type" name="type">
-        <input type="text" placeholder="condition" name="condition">
-        <input type="number" placeholder="price" name="price">
-        <input type="text" placeholder="size" name="size">
-        <input type="number" placeholder="volume" name="volume">
-        <input type="text" placeholder="finType" name="finType">
-        <input type="text" placeholder="finBox" name="finBox">
-        <input type="text" placeholder="description" name="desc">
-        <button type="submit">submit</button>
-    </form>
+    <section class="forms">
+        <form action="/users" method="POST" class="users">
+            <input type="text" placeholder="username" name="username">
+            <input type="text" placeholder="password" name="password">
+            <input type="email" placeholder="email" name="email">
+            <button type="submit">sign in</button>
+        </form>
+        <form action="/surfboards" method="POST" class="surfboards">
+            <input type="text" placeholder="model/name" name="model">
+            <input type="text" placeholder="brand" name="brand">
+            <input type="text" placeholder="type" name="type">
+            <input type="text" placeholder="condition" name="condition">
+            <input type="number" placeholder="price" name="price">
+            <input type="text" placeholder="size" name="size">
+            <input type="number" placeholder="volume" name="volume">
+            <input type="text" placeholder="finType" name="finType">
+            <input type="text" placeholder="finBox" name="finBox">
+            <input type="text" placeholder="description" name="desc">
+            <button type="submit">submit</button>
+        </form>
+    </section>
     <ul class="surfboards">
         <!-- Loop through surfboards -->
         <% for(var i=0; i < surfboards.length; i++) {%>
@@ -58,17 +61,22 @@
                         price : <%= surfboards[i].price %>
                     </li>
                     <li>
-                        fins : <%= surfboards[i].finBox %> <%= surfboards[i].finType %>
+                        fins : <%= surfboards[i].finBox %>
+                            <%= surfboards[i].finType %>
                     </li>
                     <li>
                         description : <%= surfboards[i].desc %>
+                    </li>
+                    <li>
+                        <button class="del">
+                            Delete
+                        </button>
                     </li>
                 </ul>
             </li>
             <% } %>
     </ul>
-
-    <script src="public/main.js"></script>
+    <script src="/js/main.js"></script>
 </body>
 
 </html>

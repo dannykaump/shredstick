@@ -7,7 +7,9 @@ const MongoClient = require('mongodb').MongoClient
 
 app.set('view engine', 'ejs')
 
+
 app.use(cors())
+app.use(express.static('public'))
 
 app.listen(process.env.PORT || PORT, () => {
     console.log(`The server is now FIRING on port ${PORT}!`)
@@ -32,7 +34,6 @@ MongoClient.connect('mongodb+srv://danielrkaump:hamden1216@cluster0.ejksv.mongod
             db.collection('surfboards').find().toArray()
                 .then(results => {
                     res.render('index.ejs', { surfboards: results })
-                    console.log(results)
                 })
                 .catch(error => console.error(error))
         })
