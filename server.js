@@ -29,7 +29,7 @@ MongoClient.connect('mongodb+srv://danielrkaump:hamden1216@cluster0.ejksv.mongod
         app.use(bodyParser.json())
 
         app.use(express.static(__dirname + '/dist/'))
-
+        // render surfboards
         app.get('/', (req, res) => {
             db.collection('surfboards').find().toArray()
                 .then(results => {
