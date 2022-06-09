@@ -64,6 +64,15 @@ MongoClient.connect('mongodb+srv://danielrkaump:hamden1216@cluster0.ejksv.mongod
                 })
                 .catch(error => console.error(error))
         })
+        
+        app.delete('/surfboards', (req, res) => {
+            surfCollection.deleteOne(req.body)
+                .then(result => {
+                    console.log(result)
+                    res.redirect('/')
+                })
+                .catch(error => console.error(error))
+        })
         //index
         app.get('/', (req, res) => {
             res.sendFile(__dirname + '/index.html')

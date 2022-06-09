@@ -41,7 +41,9 @@ section.forms {
     justify-content: flex-start;
 }
 
-.del {
+.delete {
     width: 50px;
 }
+
+
 
