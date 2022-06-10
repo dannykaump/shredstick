@@ -36,17 +36,15 @@
         <!-- Loop through surfboards -->
         <% for(var i=0; i < surfboards.length; i++) {%>
             <li class="surfboard">
-                <!-- Output model from the iterated surfboard object -->
                 <span>
                     <%= surfboards[i].brand %>
                 </span>
-                <!-- Output size from the iterated surfboard object -->
                 <span>
                     <%= surfboards[i].model %>
                 </span>
                 <ul>
                     <li>
-                        size : <%= surfboards[i].size %>
+                        <%= surfboards[i].size %>
                     </li>
                     <li>
                         volume : <%= surfboards[i].volume %>
@@ -66,13 +64,11 @@
                     </li>
                     <li>
                         description : <%= surfboards[i].desc %>
-                    </li>
-                    <li>
-                        <button class="delete" action="<%= surfboards[i] %>" method="DELETE">
-                            Delete
-                        </button>
-                    </li>
+                    </li>   
                 </ul>
+                <button class="delete">
+                    Delete
+                </button>
             </li>
             <% } %>
     </ul>

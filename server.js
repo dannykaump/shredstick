@@ -65,11 +65,13 @@ MongoClient.connect('mongodb+srv://danielrkaump:hamden1216@cluster0.ejksv.mongod
                 .catch(error => console.error(error))
         })
         
-        app.delete('/surfboards', (req, res) => {
-            surfCollection.deleteOne(req.body)
+        app.delete('/deleteBoard', (req, res) => {
+            console.log(req.body.brand)
+            surfCollection.deleteOne({
+                brand: req.body.brand
+            })
                 .then(result => {
                     console.log(result)
-                    res.redirect('/')
                 })
                 .catch(error => console.error(error))
         })
