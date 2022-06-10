@@ -26,7 +26,7 @@ MongoClient.connect(connectionString, {
         const userCollection = db.collection('users')
 
         app.set('view engine', 'ejs')
-        
+
         app.use(bodyParser.urlencoded({ extended: true }))
 
         app.use(bodyParser.json())
@@ -92,10 +92,15 @@ MongoClient.connect(connectionString, {
         })
         //search board by name || brand
         app.get('/api/:name', (req, res) => {
-            const boardName = req.params.name.split(' ').join('').toLowerCase()
+            const boardSearch = req.params.name.split(' ').join('').toLowerCase()
             surfCollection.find().toArray()
                 .then(results => {
-                    res.json(results.filter(obj => obj.model.toLowerCase().includes(boardName) || obj.brand.toLowerCase().includes(boardName)))
+                    res.json(results.filter(obj =>
+                        obj.model.toLowerCase().includes(boardSearch)
+                        || obj.brand.toLowerCase().includes(boardSearch)
+                        || obj.size.includes(boardSearch)
+                        || obj.desc.includes(boardSearch)
+                    ))
                 })
                 .catch(error => console.error(error))
         })
