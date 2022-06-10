@@ -5,8 +5,8 @@ const PORT = 8000
 const bodyParser = require('body-parser');
 const MongoClient = require('mongodb').MongoClient
 
-app.set('view engine', 'ejs')
-
+require('dotenv').config()
+const connectionString = process.env.DB_STRING
 
 app.use(cors())
 app.use(express.static('public'))
@@ -15,7 +15,7 @@ app.listen(process.env.PORT || PORT, () => {
     console.log(`The server is now FIRING on port ${PORT}!`)
 })
 
-MongoClient.connect('mongodb+srv://danielrkaump:hamden1216@cluster0.ejksv.mongodb.net/?retryWrites=true&w=majority', {
+MongoClient.connect(connectionString, {
     useUnifiedTopology: true
 })
 
@@ -24,6 +24,9 @@ MongoClient.connect('mongodb+srv://danielrkaump:hamden1216@cluster0.ejksv.mongod
         const db = client.db('shredstick')
         const surfCollection = db.collection('surfboards')
         const userCollection = db.collection('users')
+
+        app.set('view engine', 'ejs')
+        
         app.use(bodyParser.urlencoded({ extended: true }))
 
         app.use(bodyParser.json())
@@ -64,7 +67,7 @@ MongoClient.connect('mongodb+srv://danielrkaump:hamden1216@cluster0.ejksv.mongod
                 })
                 .catch(error => console.error(error))
         })
-        
+
         app.delete('/deleteBoard', (req, res) => {
             console.log(req.body.brand)
             surfCollection.deleteOne({
