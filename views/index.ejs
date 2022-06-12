@@ -17,12 +17,12 @@
     <a href="/login">Login</a>
     <section class="forms">
         <form action="/surfboards" method="POST" class="surfboards">
-            <input type="text" placeholder="model/name" name="model">
+            <input type="text" placeholder="model/name" name="model" required>
             <input type="text" placeholder="brand" name="brand">
             <input type="text" placeholder="type" name="type">
-            <input type="number" placeholder="price" name="price">
+            <input type="number" step='0.01' placeholder="price" name="price">
             <input type="text" placeholder="size" name="size">
-            <input type="number" placeholder="volume" name="volume">
+            <input type="number" step='0.01' max ='100' placeholder="volume" name="volume">
             <select name="finType">
                 <option value="" disabled selected>Select fin type</option>
                 <option value="futures">Futures</option>
@@ -55,28 +55,48 @@
                     <%= surfboards[i].model %>
                 </span>
                 <ul class="dims">
+                    <% if (surfboards[i].size) { %>
+                        <li>
+                            <%= surfboards[i].size%>
+                        </li>
+                    <% } %>
+
+                    <% if (surfboards[i].volume) { %>
+                        <li>
+                            <%= surfboards[i].volume + 'L'%>
+                        </li>
+                    <% } %>
+                    
+                    <% if (surfboards[i].type) { %>
                     <li>
-                        <%= surfboards[i].size %>
+                        <%= surfboards[i].type%>
                     </li>
+                    <% } %>
+
+                    <% if (surfboards[i].price) { %>
                     <li>
-                        volume : <%= surfboards[i].volume %>
+                        <%= '$' + surfboards[i].price %>
                     </li>
+                    <% } %>
+
+                    <% if (surfboards[i].finType || surfboards[i].finBox) { %>
                     <li>
-                        type : <%= surfboards[i].type %>
-                    </li>
-                    <li>
-                        price : <%= surfboards[i].price %>
-                    </li>
-                    <li>
-                        fins : <%= surfboards[i].finBox %>
+                        <%= surfboards[i].finBox %> /
                         <%= surfboards[i].finType %>
                     </li>
+                    <% } %>
+
+                    <% if (surfboards[i].condition) { %>
                     <li>
-                        condition : <%= surfboards[i].condition %>
+                        <%= surfboards[i].condition%>
                     </li>
+                    <% } %>
+                
+                    <% if (surfboards[i].desc) { %>
                     <li>
-                        description : <%= surfboards[i].desc %>
+                        <%= surfboards[i].desc%>
                     </li>
+                    <% } %>
                 </ul>
                 <button class="delete">
                     Delete
