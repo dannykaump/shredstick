@@ -4,7 +4,6 @@ Array.from(deleteButtons).forEach((button) => {button.addEventListener('click', 
 
 async function deleteBoard() {
     const boardBrand = this.parentNode.childNodes[1].innerText.trim()
-    console.log(boardBrand)
     try {
         const response = await fetch('deleteBoard', {
             method: 'delete',
@@ -14,8 +13,7 @@ async function deleteBoard() {
             })
         })
         const data = await response.json()
-        console.log(data)
-        location.reload()
+        window.location.reload(true)
     } catch (err) {
         console.log(err)
     }

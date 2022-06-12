@@ -32,7 +32,8 @@ MongoClient.connect(connectionString, {
         app.use(bodyParser.json())
 
         app.use(express.static(__dirname + '/dist/'))
-        // render surfboards
+
+        // render surfboards / index
         app.get('/', (req, res) => {
             db.collection('surfboards').find().toArray()
                 .then(results => {
@@ -40,14 +41,13 @@ MongoClient.connect(connectionString, {
                 })
                 .catch(error => console.error(error))
         })
-
-        app.get('/', (req, res) => {
-            db.collection('users').find().toArray()
-                .then(results => {
-                    res.render('index.ejs', { users: results })
-                    console.log(results)
-                })
-                .catch(error => console.error(error))
+        //login
+        app.get('/login', (req, res) => {
+            res.render('login.ejs')
+        })
+        //register
+        app.get('/register', (req, res) => {
+            res.render('register.ejs')
         })
         // create surfboard obj in database
         app.post('/surfboards', (req, res) => {
@@ -67,7 +67,7 @@ MongoClient.connect(connectionString, {
                 })
                 .catch(error => console.error(error))
         })
-
+        // delete board obj from database
         app.delete('/deleteBoard', (req, res) => {
             console.log(req.body.brand)
             surfCollection.deleteOne({
@@ -75,12 +75,9 @@ MongoClient.connect(connectionString, {
             })
                 .then(result => {
                     console.log(result)
+                    res.json('deleted')
                 })
                 .catch(error => console.error(error))
-        })
-        //index
-        app.get('/', (req, res) => {
-            res.sendFile(__dirname + '/index.html')
         })
         //all surfboards JSON
         app.get('/api', (req, res) => {
@@ -104,8 +101,6 @@ MongoClient.connect(connectionString, {
                 })
                 .catch(error => console.error(error))
         })
-
     })
-
     .catch(error => console.error(error))
 
