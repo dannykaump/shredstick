@@ -5,6 +5,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="wnameth=device-wnameth, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/style.css" />
     <title>shredstick</title>
 </head>
@@ -17,12 +20,26 @@
             <input type="text" placeholder="model/name" name="model">
             <input type="text" placeholder="brand" name="brand">
             <input type="text" placeholder="type" name="type">
-            <input type="text" placeholder="condition" name="condition">
             <input type="number" placeholder="price" name="price">
             <input type="text" placeholder="size" name="size">
             <input type="number" placeholder="volume" name="volume">
-            <input type="text" placeholder="finType" name="finType">
-            <input type="text" placeholder="finBox" name="finBox">
+            <select name="finType">
+                <option value="" disabled selected>Select fin type</option>
+                <option value="futures">Futures</option>
+                <option value="fcs">FCS</option>
+                <option value="fcs2">FCS2</option>
+                <option value="other">Other</option>
+            </select>
+            <select name="finBox">
+                <option value="" disabled selected>Select fin setup</option>
+                <option value="thruster">Thruster</option>
+                <option value="5-fin">5-Fin</option>
+                <option value="twin">Twin</option>
+                <option value="quad">Quad</option>
+                <option value="single">Single</option>
+                <option value="other">Other</option>
+            </select>
+            <input type="text" placeholder="condition" name="condition">
             <input type="text" placeholder="description" name="desc">
             <button type="submit">submit</button>
         </form>
@@ -48,18 +65,18 @@
                         type : <%= surfboards[i].type %>
                     </li>
                     <li>
-                        condition : <%= surfboards[i].condition %>
-                    </li>
-                    <li>
                         price : <%= surfboards[i].price %>
                     </li>
                     <li>
                         fins : <%= surfboards[i].finBox %>
-                            <%= surfboards[i].finType %>
+                        <%= surfboards[i].finType %>
+                    </li>
+                    <li>
+                        condition : <%= surfboards[i].condition %>
                     </li>
                     <li>
                         description : <%= surfboards[i].desc %>
-                    </li>   
+                    </li>
                 </ul>
                 <button class="delete">
                     Delete
