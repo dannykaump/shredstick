@@ -63,6 +63,16 @@ span {
     font-weight: 700;
 }
 
+ul.surfboards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+ul.surfboards > li {
+    width: 100%;
+}
+
 li {
     padding: 2px;
 }
@@ -74,4 +84,12 @@ li.surfboard {
 a.home {
     font-size: .85em;
     font-weight: 500;
+}
+
+ul.dims {
+    width: fit-content;
+}
+
+ul.dims > li {
+    width: fit-content;
 }
