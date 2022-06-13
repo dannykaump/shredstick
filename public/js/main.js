@@ -14,6 +14,7 @@ async function deleteBoard() {
         })
         const data = await response.json()
         window.location.reload(true)
+        console.log(data)
     } catch (err) {
         console.log(err)
     }
