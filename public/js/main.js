@@ -1,6 +1,6 @@
 const deleteButtons = document.querySelectorAll('.delete')
 
-Array.from(deleteButtons).forEach((button) => {button.addEventListener('click', deleteBoard)})
+Array.from(deleteButtons).forEach((button) => { button.addEventListener('click', deleteBoard) })
 
 async function deleteBoard() {
     const boardBrand = this.parentNode.childNodes[1].innerText.trim()
