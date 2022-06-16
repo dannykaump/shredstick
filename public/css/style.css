@@ -1,4 +1,4 @@
-/* layout */
+/* LAYOUT */
 
 * {
     box-sizing: border-box;
@@ -98,4 +98,24 @@ ul.dims {
 
 ul.dims>li {
     width: fit-content;
+}
+
+/* STYLES */
+
+button {
+    background: rgb(64, 160, 255);
+    color: white;
+    font-weight: 700;
+    border: none;
+    border-radius: 5px;
+    margin-top: 3px;
+}
+
+button:hover {
+    opacity: 70%;
+}
+
+input, select {
+    background: rgb(239, 239, 239);
+    border: 1px solid black;
 }
