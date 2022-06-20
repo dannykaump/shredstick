@@ -14,11 +14,10 @@ app.use(express.static('public'))
 app.listen(process.env.PORT || PORT, () => {
     console.log(`The server is now FIRING on port ${PORT}!`)
 })
-
+//connect to database
 MongoClient.connect(connectionString, {
     useUnifiedTopology: true
 })
-
     .then(client => {
         console.log('Connected to Database')
         const db = client.db('shredstick')
