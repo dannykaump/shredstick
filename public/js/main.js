@@ -1,3 +1,4 @@
+// main
 const deleteButtons = document.querySelectorAll('.delete')
 // add event listeners to delete buttons
 Array.from(deleteButtons).forEach((button) => { button.addEventListener('click', deleteBoard) })
